@@ -1,0 +1,90 @@
+<style>
+    .wx_span_style li input {
+        width: 120px;
+    }
+    
+    .wx_radio {
+        width: 20px!important;
+        height: 16px!important;
+        vertical-align: middle;
+        margin-right: 3px;
+    }
+    
+    .wx_span_style li label {
+        margin-right: 20px;
+    }
+    
+    input[type="radio"] {
+        margin: 3px 3px 0px 5px;
+        display: none;
+    }
+    
+    label {
+        padding-left: 20px;
+        cursor: pointer;
+        background: url(img/radio_false.png) no-repeat left top;
+    }
+    
+    input:checked + label {
+        background: url(img/radio_true.png) no-repeat;
+    }
+</style>
+<div class="zy_main">
+    <div class="zy_cont">
+        <p class="zy_centerTit"> <span class="zy_active" style="width:100px!important">修改家长信息</span> </p>
+        <div class="zy_switchCon">
+            <ul class="zy_basicMsg wx_span_style">
+                <li ng-model="user.id"></li>
+                <li>
+                     <em>真实姓名：</em> 
+                     <span><input type="text" ng-model="user.data.realname" required></span>
+                 </li>
+                <li>
+                    <em>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</em>
+                    <input type="radio" name="ifTeach" id="zy_teacheingY" value="男" ng-model="user.data.sex" class="wx_radio" />
+                    <label for="zy_teacheingY">男</label>
+                    <input type="radio" name="ifTeach" id="zy_teacheingN" value="女" ng-model="user.data.sex" class="wx_radio" />
+                    <label for="zy_teacheingN">女</label>
+                    
+                </li>
+                <li> 
+                  <em>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</em> 
+                    <span>
+                        <select id="" ng-model="user.data.user_nation" style="width:120px" ng-options="nation.id as nation.name for nation in nationData"></select>
+                        <i></i>
+                    </span>
+               </li>
+                <li> 
+                    <em>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</em>
+                    <span><input type="text" ng-model="user.data.user_mobile" required></span> 
+                    
+                </li>
+                <li> 
+                    <em>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</em> 
+                    <span><input type="email" style="width:250px!important" ng-model="user.data.user_email"></span> 
+                
+                </li>
+                <li> 
+                    <em>子女姓名：</em> 
+                    <span ng-repeat="i in zinvxx.data.parentChildren">{{i.realname}}&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                
+                </li>
+                <li> 
+                    <em>国网学籍号：</em> 
+                    <span ng-repeat="i in zinvxx.data.parentChildren">{{i.stuNo}}&nbsp;&nbsp;&nbsp;&nbsp;</span> 
+                
+                </li>
+            </ul>
+            <input class="zy_submit zy_personalMsgSub" type="submit" name="" id="" value="保存" ng-click="xgjzxx()" />
+        </div>
+    </div>
+</div>
+<!--警告弹框-->
+<!--gy_del_down为公用clss名不要动，后面起自己控制的class-->
+<div class="gy_del_down zy_warningBox" style="display:none">
+    <div class="gy_hide"></div>
+    <div class="gy_con">
+        <!--弹框具体宽高自定义-->
+        <p> <img src="img/chenggong.png" alt="" style="height:46px" /> <i>保存成功</i> </p>
+    </div>
+</div>

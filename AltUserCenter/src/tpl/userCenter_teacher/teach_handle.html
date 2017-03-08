@@ -1,0 +1,157 @@
+<div class="zy_main">
+	<div class="zy_cont">
+		<div class="zy_centerTit">
+			<span class="zy_active">教师管理</span>
+            <div class="zjy_handle_tab">
+                <strong ng-class="{'active':state.headTab==0}" ng-click="changeHeadTab(0)">在线教师</strong>
+                <strong ng-class="{'active':state.headTab==2}" ng-click="changeHeadTab(2)">已停用账号</strong>
+                <strong ng-class="{'active':state.headTab==3}" ng-click="changeHeadTab(3)">回收站</strong>
+            </div>
+		</div>
+		<div class="zy_switchCon zjy_teach_handle">
+            <div ng-switch="state.headTab">
+                <div ng-switch-when="0">
+                    <div class="handle_head">
+                        <ul>
+                            <li ng-click="teachEventHandle('check')">审核</li>
+                            <li ng-click="teachEventHandle('stop')">停用</li>
+                            <li ng-click="teachEventHandle('passReset')">重置密码</li>
+                            <li ng-click="teachEventHandle('delet')">删除</li>
+                            <li><input type="text" name="" ng-model="onlineKeyword" ng-keypress="onlineKeyup($event,onlineKeyword)" placeholder="请输入姓名或手机号"/><span class="handle_search" ng-click="onlineSearch(onlineKeyword)"></span></li>
+                        </ul>
+                    </div>
+                    <div class="handle_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th width="6%"><input type="checkbox" ng-model="state.teachOnlineChecked" id="teachOnlineChecked" ng-click="teachOnlineAction($event)"/><label for="teachOnlineChecked" onSelectStart="return false">全选</label></th>
+                                    <th width="6%">序号</th>
+                                    <th width="7%">教师ID</th>
+                                    <th width="12%">教师姓名</th>
+                                    <th width="15%">学校名称</th>
+                                    <th width="17%">手机号</th>
+                                    <th width="17%">身份证号</th>
+                                    <th width="9%">状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tabledata in teacherList.tableMsgList">
+                                    <td><input type="checkbox" ng-checked="isOnlineChecked(tabledata.id)" ng-click="changeOnlineChecked($event,tabledata.id)"/></td>
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="tabledata.id"></td>
+                                    <td ng-bind="tabledata.realname"></td>
+                                    <td ng-bind="tabledata.schoolName"></td>
+                                    <td ng-bind="tabledata.userPhone"></td>
+                                    <td ng-bind="tabledata.idCard"></td>
+                                    <td><span ng-show="tabledata.state==state.testShow">审核</span><span ng-hide="tabledata.state==state.testShow">未审核</span></td>
+                                    <td style="cursor: pointer"><i class="xiugai_icon"></i>修改</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="handle_footer">
+                           <span class="handle_persontit">共<span class="handle_personcount" ng-bind="state.teachOnlineCount"></span>人</span> 
+                           <zjy-pagination conf="teachPaginationOnline" onSelectStart="return false"></zjy-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="2">
+                    <div class="handle_head">
+                        <ul>
+                            <li ng-click="teachStopHandle('renew')">还原</li>
+                            <li ng-click="teachStopHandle('finishDele')">彻底删除</li>
+                            <li><input type="text" name="" ng-model="stopKeyword" ng-keypress="onlineKeyup($event,stopKeyword)" placeholder="请输入姓名或手机号"/><span class="handle_search" ng-click="onlineSearch(stopKeyword)"></span></li>
+                        </ul>
+                    </div>
+                    <div class="handle_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" ng-model="state.teachStopChecked" id="teachStopChecked" ng-click="teachStopAction($event)"/><label for="teachStopChecked" onSelectStart="return false">全选</label></th>
+                                    <th>序号</th>
+                                    <th>教师ID</th>
+                                    <th>教师姓名</th>
+                                    <th>学校名称</th>
+                                    <th>手机号</th>
+                                    <th>身份证号</th>
+                                    <th width="9%">状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tabledata in teacherList.tableMsgListStop">
+                                    <td><input type="checkbox" ng-checked="isStopChecked(tabledata.id)" ng-click="changeStopChecked($event,tabledata.id)"/></td>
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="tabledata.id"></td>
+                                    <td ng-bind="tabledata.realname"></td>
+                                    <td ng-bind="tabledata.schoolName"></td>
+                                    <td ng-bind="tabledata.userPhone"></td>
+                                    <td ng-bind="tabledata.idCard"></td>
+                                    <td><span ng-show="tabledata.state==1">审核</span><span ng-show="tabledata.state==0">未审核</span></td>
+                                    <td style="cursor: pointer"><i class="xiugai_icon"></i>修改</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="handle_footer">
+                           <span class="handle_persontit">共<span class="handle_personcount" ng-bind="state.teachStopCount"></span>人</span> 
+                           <zjy-pagination conf="teachPaginationStop" onSelectStart="return false"></zjy-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="3">
+                     <div class="handle_head">
+                        <ul>
+                            <li ng-click="teachRecoverHandle('startUser')">启用</li>
+                            <li ng-click="teachRecoverHandle('finishDele')">删除</li>
+                            <li><input type="text" ng-model="recoverKeyword" ng-keypress="onlineKeyup($event,recoverKeyword)" name="" placeholder="请输入姓名或手机号"/><span class="handle_search" ng-click="onlineSearch(recoverKeyword)"></span></li>
+                        </ul>
+                    </div>
+                    <div class="handle_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" ng-model="state.teachRecoverChecked" id="teachRecoverChecked" ng-click="teachRecoverAction($event)"/><label for="teachRecoverChecked" onSelectStart="return false">全选</label></th>
+                                    <th>序号</th>
+                                    <th>教师ID</th>
+                                    <th>教师姓名</th>
+                                    <th>学校名称</th>
+                                    <th>手机号</th>
+                                    <th>身份证号</th>
+                                    <th width="9%">状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tabledata in teacherList.tableMsgListRecover">
+                                    <td><input type="checkbox" ng-checked="isRecovereChecked(tabledata.id)" ng-click="changeRecoverChecked($event,tabledata.id)"/></td>
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="tabledata.id"></td>
+                                    <td ng-bind="tabledata.realname"></td>
+                                    <td ng-bind="tabledata.schoolName"></td>
+                                    <td ng-bind="tabledata.userPhone"></td>
+                                    <td ng-bind="tabledata.idCard"></td>
+                                    <td><span ng-show="tabledata.state==state.testShow">审核</span><span ng-hide="tabledata.state==state.testShow">未审核</span></td>
+                                    <td style="cursor: pointer"><i class="xiugai_icon"></i>修改</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="handle_footer">
+                           <span class="handle_persontit">共<span class="handle_personcount" ng-bind="state.teachRecoverCount"></span>人</span> 
+                            <zjy-pagination conf="teachPaginationRecover" onSelectStart="return false"></zjy-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
+<!--gy_del_down为公用clss名不要动，后面起自己控制的class-->
+<div class="gy_del_down zy_warningBox" ng-show="state.warningShow">
+    <div class="gy_hide"></div>
+    <div class="gy_con"><!--弹框具体宽高自定义-->
+		<p>
+			<img src="img/wonde_big.png" alt="" style="vertical-align: sub"/>
+			<i ng-bind="state.noteContent"></i>
+		</p>
+    </div>
+</div>

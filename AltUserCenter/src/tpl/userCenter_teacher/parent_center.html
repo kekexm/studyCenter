@@ -1,0 +1,186 @@
+<style>
+    .zy_header{min-width:1200px;}
+    .zy_navBg{width: 100%; height: 80px; background: #fff;}
+    .zy_nav{width: 1200px; margin: 0 auto;}
+    .zy_nav h1{width: 215px; height: 54px; background: url(../../img/alt_login.png) no-repeat; margin-right: 24px; margin-top: 16px; text-indent: -9999px;}
+    .zy_jetsen{margin-top: 20px;}
+    .zy_back{font-size: 1.6rem; line-height: 80px;}
+    .zy_back i{display: inline-block; width: 19px; height: 16px; background: url(../../img/index_sprite.png)no-repeat -193px 0;}
+    .zy_userCenter{width: 100%; height: 62px; line-height: 62px; text-align: center; color: #fff; font-size: 1.8rem; background: #25a1ee;}
+    .zy_footer{width: 100%; height: 65px; background: #333333;}
+    .zy_footer p{line-height: 65px; color: #fff; text-align: center; font-size: 1.6rem;}
+    input.radio{width:18px;height:18px;vertical-align: middle;}
+    .zinvswitch span{width:90px;height:34px;display: inline-block;line-height: 34px;text-align: center;margin-right:20px!important;border-radius:5px;cursor: pointer;}
+    .zinvswitch span.active{background:#25a1ee;color:#fff;}
+    .wx_zinvcon{margin-top:20px;}
+    .wx_zinvguanxi select{width:99px;}
+    .wx_zinv_tj{display: block;width: 310px!important;height: 34px!important;line-height: 34px;text-align: center;margin: 0 auto;background: #25a1ee;border-radius: 5px;overflow: hidden;color: #FFFFFF;border: 1px solid #25a1ee;margin-bottom: 260px;cursor: pointer;outline: none;}
+    .wx_erro{background: url(../../img/error_prompt.png);display: inline-block;width: 21px;height: 17px;}
+
+    .file {position: relative;display: inline-block;padding: 4px 12px;cursor:pointer;}
+    .file input {position: absolute;font-size:48px;right: 0;top: 0;opacity: 0;height: 48px;}
+    .wx_touxiang{width:48px;vertical-align: middle;}
+    #preview{width:48px;height:48px;border-radius:50%;}
+   
+
+</style>
+<div class="zy_main">
+	<div class="zy_cont">
+		<p class="zy_centerTit">
+			<span ng-click="tab(0)" ng-class="{'zy_active':switch == 0}">个人信息</span>
+			<i></i>
+			<span ng-click="tab(1)" ng-class="{'zy_active':switch == 1}">账号设置</span>
+			<i></i>
+			<span ng-click="tab(2)" ng-class="{'zy_active':switch == 2}">子女资料</span>
+		</p>
+		<div class="zy_switchCon">
+			<div ng-show="switch == 0">
+				<!--姓名/身份证号/性别/民族/手机/邮箱-->
+				<ul class="zy_basicMsg">
+					<li>
+						<span><em>真实姓名：</em><i ><input type="text" ng-model="user.realname" /></i></span>
+					</li>
+					<li>
+					    <em>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</em><input type="radio" name="sex" class="radio" id="nan" value='男' ng-model="user.sex" ><label for="nan" ng-class="{'zy_active':ifRadio}">男</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name="sex" type="radio" class="radio" id="nv"  value='女' ng-model="user.sex"><label for="nv"  ng-class="{'zy_active':!ifRadio}">女</label>
+					</li>
+					<li>
+						<em>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</em>
+						<select name="" ng-model="user.user_nation" ng-options="nation.id as nation.name for nation in nationData" >
+						</select>
+						<i></i>
+					</li>
+					<li>
+						<em>手&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;机：</em>
+						<input type="text" name="" id="" value="" ng-model="user.user_mobile" />
+						<i></i>
+					</li>
+					<li>
+						<em>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</em>
+						<input type="text" name="" id="" value="" ng-model="user.user_email" />
+						<strong class="zy_tips">（输入邮箱地址后，您即可通过邮箱方式找回登录密码。）</strong>
+					</li>
+				</ul>
+				
+				<input class="zy_submit zy_personalMsgSub" type="submit" name="" id="" value="提交" ng-click="submitDataParent()" />
+			</div>
+<!--	账号设置		-->
+			<div ng-show="switch == 1">
+				<ul class="zy_basicMsg">
+					<li>
+						<span>
+						    <em>头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像：</em>
+						    <span style="margin-right:10px!important">
+						        <a href="javascript:;" class="file"><img class="wx_touxiang" id="preview" ng-src="{{user.img}}" src="../../img/login_img.png" alt="">
+                                    <input type="file" name="" id="file" onchange="angular.element(this).scope().upload()" 
+                                    ng-model="myFile">
+                                </a>
+						    </span>
+						    <span>（支持JPG,PNG格式的图片）</span>
+						</span>
+					</li>
+					<li>
+					    <em>原&nbsp;&nbsp;密&nbsp;&nbsp;码：</em>
+					    <input type="text" ng-model="user.orgPassword" placeholder="登录教育云平台时需要输入的密码">
+					    <span ng-show="same==2">密码错误请重新输入！</span>
+					</li>
+					<li>
+						<em>新&nbsp;&nbsp;密&nbsp;&nbsp;码：</em>
+						<input type="text" ng-model="user.newpassword" placeholder="请输入6位字母或数字">
+                        <span ng-show="same==3">请输入六位子母和数字！</span>
+					</li>
+					<li>
+						<em>确认密码：</em>
+				        <input type="text" name="" id="" value="" ng-model="user.renewpassword" placeholder="请输入6位字母或数字" />
+				        <span ng-show="same==1">请输入相同的密码</span>
+						<p style="margin-left:85px;margin-top:9px;color:#e04648"><i class="wx_erro"></i>为方便您找回密码，修改密码前，请先设置您的邮箱地址。马上去填写 <span style="color:#333;cursor:pointer">邮箱地址</span> >></p>
+					</li>
+				</ul>
+				<input class="wx_zinv_tj" type="submit" name="" id="" value="提交" ng-click="updateStudentMsg(user)" />
+			</div>
+			<div ng-show="switch == 2">
+				<ul class="zy_basicMsg zinvswitch">
+					<div>
+						<span ng-click="zinvtab($index)" ng-class="{'active':zinvshow==$index}" ng-repeat="childrenObj in znlist" ng-bind="childrenObj.realname"></span>
+						<!--<span ng-click="zinvtab(1)"  ng-class="{'active':zinvshow==1}">张佳一</span>-->
+					</div>
+					<div class="wx_zinvcon" ng-repeat="childrenObj in znlist">
+                        <div ng-show="zinvshow==$index">
+                            <ul>
+                                <li><em>子女姓名：</em><!--{{childrenObj.realname}}--><span ng-bind="childrenObj.realname" id=""></span></li>
+                                <li><em>国网学籍号：</em>{{childrenObj.stuNo}}</li>
+                                <li>
+                                   <em>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</em><input type="radio"  class="radio" id="zinan" value='男' ng-model="childrenObj.sex"><label for="zinan">男</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input  type="radio" class="radio" id="zinv" value='女' ng-model="childrenObj.sex" ><label for="zinv">女</label>
+                               <!-- <em>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</em><input type="radio" name="sex" class="radio" id="nannan" value='男' ng-model="childrenObj.sex" ><label for="nannan" ng-class="{'zy_active':ifRadio}">男</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name="sex" type="radio" class="radio" id="nvnv"  value='女' ng-model="childrenObj.sex"><label for="nvnv"  ng-class="{'zy_active':!ifRadio}">女</label>-->
+                                </li>
+                                <li>
+                                    <em>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</em>{{childrenObj.userNation}}
+                                    <!--<select name="" ng-model="childrenObj.userNation" disabled style="border: none;color: #333;" ng-options="nation.id as nation.name for nation in nationData">
+                                    
+						            </select>-->
+                                    
+                                </li>
+                                <li><em>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：</em>{{childrenObj.birthdayStr}}</li>
+                                <li class="wx_zinvguanxi">
+                                    <em>子女关系：</em>
+                                    <select name="" id="" ng-model="user.sex" ng-options="nation.id as nation.name for nation in parents" >
+                                    </select>
+                                    
+                                    <i></i>
+                                </li>
+                                <li>
+                                   <em>子女状态：</em>上{{childrenObj.stuLevelName}} &lt; {{childrenObj.gradeName}}
+                                </li>
+                                <li>
+                                    <em>就读学校：</em>{{childrenObj.schoolName}}
+                                </li>
+
+                            </ul>
+                           <input  class="wx_zinv_tj" type="submit" name="" id="" value="提交"  ng-click="zvsubmit()"/>
+                        </div>
+					    <!--<div ng-show="zinvshow==1">
+					        <ul>
+                                <li><em>子女姓名：</em>张佳一</li>
+                                <li><em>国网学籍号：</em>G23145200207111111</li>
+                                <li>
+                                    <em>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</em><input type="radio" name="sex" class="radio" id="zinan"><label for="zinan">男</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input name="sex" type="radio" class="radio" id="zinv" checked><label for="zinv">女</label>
+                                </li>
+                                <li>
+                                    <em>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：</em>哈萨克斯坦
+                                </li>
+                                <li><em>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：</em>2008年2月1日</li>
+                                <li class="wx_zinvguanxi">
+                                    <em>子女关系：</em>
+                                    <select name="" id="">
+                                        <option value="">父亲</option>
+                                        <option value="">母亲</option>
+                                    </select>
+                                    <i></i>
+                                </li>
+                                <li>
+                                    <em>子女状态：</em>上初中 &lt; 一年级
+                                </li>
+                                <li>
+                                    <em>就读学校：</em>福海县第一小学
+                                </li>
+                            </ul>
+                            <input class="wx_zinv_tj" type="submit" name="" id="" value="提交" />
+					    </div>-->
+					    
+					</div>
+					
+				</ul>
+                </div>
+		</div>
+	</div>
+	
+</div>
+<!--警告弹框-->
+<!--gy_del_down为公用clss名不要动，后面起自己控制的class-->
+<div class="gy_del_down zy_warningBox" style="display:none">
+    <div class="gy_hide"></div>
+    <div class="gy_con">
+        <!--弹框具体宽高自定义-->
+        <p> <img src="img/chenggong.png" alt="" style="height:46px" /> <i>保存成功</i> </p>
+    </div>
+</div>

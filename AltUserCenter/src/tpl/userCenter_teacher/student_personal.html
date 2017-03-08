@@ -1,0 +1,99 @@
+    <style>
+        input.radio{width:18px;height:18px;vertical-align: middle;}
+        .zinvswitch span{width:90px;height:34px;display: inline-block;line-height: 34px;text-align: center;margin-right:20px!important;border-radius:5px;cursor: pointer;}
+        .zinvswitch span.active{background:#25a1ee;color:#fff;}
+        .wx_zinvcon{margin-top:20px;}
+        .wx_zinvguanxi select{width:99px;}
+        .wx_zinv_tj{display: block;width: 310px!important;height: 34px!important;line-height: 34px;text-align: center;margin: 0 auto;background: #25a1ee;border-radius: 5px;overflow: hidden;color: #FFFFFF;border: 1px solid #25a1ee;margin-bottom: 260px;cursor: pointer;outline: none;}
+        .wx_erro{background: url(../../img/error_prompt.png);display: inline-block;width: 21px;height: 17px;}
+        .file {position: relative;display: inline-block;padding: 4px 12px;cursor:pointer;}
+        .file input {position: absolute;font-size:48px;right: 0;top: 0;opacity: 0;height: 48px;}
+        .wx_touxiang{width:48px;vertical-align: middle;}
+        #preview{width:48px;height:48px;border-radius:50%;}
+        .wx_span_style input{width:90px;border: 1px solid #cfcfcf;}
+        .wx_span_style li span{margin-right:50px!important;}
+    </style>
+            
+<div class="zy_main">
+	<div class="zy_cont">
+		<p class="zy_centerTit">
+			<span ng-click="tab(0)" ng-class="{'zy_active':switch == 0}">个人信息</span>
+			<i></i>
+			<span ng-click="tab(1)" ng-class="{'zy_active':switch == 1}">账号设置</span>
+		</p>
+		<div class="zy_switchCon">
+			<div ng-show="switch == 0">
+				<!--姓名/身份证号/性别/民族/手机/邮箱-->
+				<ul class="zy_basicMsg wx_span_style">
+					<li>
+						<span><em>真实姓名：</em><i ng-bind="user.realname"><input type="text" value="张三"></i></span>
+						<span><em>学籍号：</em><i ng-bind="user.stuNo"></i></span>
+						<span><em>性别：</em><i ng-bind="user.sex"></i></span>
+						<span><em>民族：</em><select name="" ng-model="user.userNation" ng-options="nation.id as nation.name for nation in nationData" >
+						</select></span>
+					</li>
+					<li>
+					    <em>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：</em>
+					    <input ng-model="user.year" type="number" value="" required>&nbsp;
+					    <input ng-model="user.month" type="number" max="12" min="1"  placeholder="选择月" required>&nbsp;
+					    <input ng-model="user.day" type="number" max="31" min="1" placeholder="选择日" required>
+					    
+					</li>
+					<li>
+						<em>学校名称：</em>
+						<span ng-bind="user.schoolName">福海县第一小学</span>
+					</li>
+					<li>
+						<em>所在年级：</em>
+						<span ng-bind="user.gradeName">一年级</span>
+					</li>
+					<li>
+						<em>所在班级：</em>
+						<span ng-bind="user.className">10</span>
+					</li>
+				</ul>
+				
+				<input class="zy_submit zy_personalMsgSub" ng-click="submitStudentMsg(user)" type="submit" name="" id="" value="提交" />
+			</div>
+<!--	账号设置		-->
+			<div ng-show="switch == 1">
+			<form name="myForm" novalidate>
+				<ul class="zy_basicMsg">
+					<li>
+						<span>
+						    <em>头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像：</em>
+						    <span style="margin-right:10px!important">
+						        <a href="javascript:;"  class="file"><img class="wx_touxiang" id="preview" ng-src="{{user.img}}" src="../../src/img/login_img.png">
+                                    <input type="file" name="" id="file" onchange="angular.element(this).scope().upload()" ng-model="myFile" >
+                                </a>
+						    </span>
+						    <span>（支持JPG,PNG格式的图片）</span>
+						</span>
+					</li>
+					<li>
+					    <em>真&nbsp;实&nbsp;姓&nbsp;名：</em>
+					    <span ng-bind="user.realname" name="realname"></span>
+					</li>
+					<li>
+						<em>国网学籍号：</em>
+						<span><i ng-bind="user.stuNo"></i></span>
+					</li>
+					<li>
+					    <em>旧&nbsp;&nbsp;密&nbsp;&nbsp;码：</em>
+					    <input ng-model="user.orgPassword" type="text" required placeholder="请输入6位字母或数字"  ><span ng-show="same == 2">请输入6位字母或数字！</span><span ng-show="same == 4">密码错误请重新输入！</span>
+					</li>
+					<li>
+					    <em>新&nbsp;&nbsp;密&nbsp;&nbsp;码：</em>
+					    <input ng-model="user.newpassword" type="text" placeholder="请输入6位字母或数字" required  ><span ng-show="same == 3">请输入6位字母或数字！</span>
+					</li>
+					<li>
+						<em>确认密码：</em>
+				        <input ng-model="user.renewpassword" type="text" name="" id="" value="" placeholder="请输入6位字母或数字" required/><span ng-show="same == 1" >请输入相同的密码！</span>
+					</li>
+				</ul>
+				<input class="wx_zinv_tj" type="submit" name="" id="" value="提交" ng-click="updateStudentMsg(user)" />
+			</form>
+			</div>
+		</div>
+	</div>
+</div>

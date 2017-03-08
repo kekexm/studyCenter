@@ -1,0 +1,112 @@
+
+<div class="zy_main">
+	<div class="zy_cont">
+		<p class="zy_centerTit">
+			<span class="zy_active">学校管理</span>
+			<b class="zy_editTips">（提示：点击方格进行编辑或修改）</b>
+		</p>
+		<div class="zy_switchCon">
+			<div>
+				<!--学校基本信息-->
+				<ul class="zy_basicMsg zy_schoolBasicMsg">
+					<li class="zy_sel">
+						<span>
+							<em>区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;域：</em>
+							<p>
+								<select name="" ng-model="schoolArea.areaId" ng-options="area.areaId as area.areaName for area in schoolArea">
+									
+								</select>
+								<i></i>
+							</p>
+							<!--<input type="text" name="" id="" ng-model="schoolDate.school.area.name" onclick="readonly = false" style="border: none;" />-->
+							<strong>（如：福海县）</strong>
+						</span>
+					</li>
+					<li class="zy_sel">
+						<span>
+							<em>学校类型：</em>
+							<p>
+								<!--x.id as x.name for x in list-->
+								<select name="" ng-model="schoolDate.school.grade" ng-options="type.id as type.name for type in schoolType"> 
+									<!--<option value="请选择学校类型"></option>-->
+								</select>
+								<i></i>
+							</p>
+							<!--<input type="text" name="" id="" value="你啥都is阿吉豆比" onclick="readonly = false" style="border: none;" />-->
+							<strong>（如：高级中学、初级中学、小学、小学教学点、九年一贯制学校、完全中学、特殊教育学校、机构）</strong>
+						</span>
+					</li>
+					<li>
+						<span>
+							<em>学校名称：</em>
+							<input type="text" name="" id="" ng-model="schoolDate.school.name" onclick="readonly = false" style="border: none;" />
+							<strong>（如：福海县第一小学）</strong>
+						</span>
+					</li>
+					<li>
+						<span>
+							<em class="zy_long">学校标识码：</em>
+							<input type="text" name="" id="" ng-model="schoolDate.school.code" onclick="readonly = false" style="border: none;" />
+							<strong>（如：福海县xx区xx街道199号）</strong>
+						</span>
+					</li>
+					<li>
+						<span>
+							<em>学校地址：</em>
+							<input type="text" name="" id="" value="福海县xxx大街8号" ng-model="schoolDate.school.address" onclick="readonly = false" style="border: none;" />
+							<strong>（如：福海县xx区xx街道199号）</strong>
+						</span>
+					</li>
+					<li class="zy_statistics">
+						<span>
+							<em >统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计：</em>
+							<i>学生总数：</i>
+							<input value="345" readonly ng-value="schoolDate.studentCount"></input>人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<i>教师总数：</i>
+							<input value="345" readonly ng-value="schoolDate.teacherCount" ></input>人
+						</span>
+					</li>
+				</ul>
+				
+				<ul class="zy_basicMsg zy_schoolYear">
+					<!--<li>
+						<em>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年：</em>
+						
+						<div class="zy_time" id="startTime">
+							
+							<p class="input-group">
+							    <input type="text" class="form-control" datepicker-popup readonly ng-model="dicQueryObj.startTime" is-open="startPopupOpened" min-date="" max-date="" datepicker-options="dateOptions" ng-required="true" close-text="关闭" clear-text="清除" current-text="今天"/>
+							  	<span class="input-group-btn">
+							    　<button type="button" class="btn btn-default" ng-click="startOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+							    </span>
+							</p>
+							
+						</div>
+						<div class="zy_time" id="endTime">
+											
+							<p class="input-group">
+							   <input type="text" class="form-control" datepicker-popup readonly ng-model="dicQueryObj.endTime" is-open="endPopupOpened" min-date="dicQueryObj.startTime" max-date="" datepicker-options="dateOptions" ng-required="true" close-text="关闭" clear-text="清除" current-text="今天" />
+							   <span class="input-group-btn">
+							       <button type="button" class="btn btn-default" ng-click="endOpen()"><i class="glyphicon glyphicon-calendar"></i></button>
+							   </span>
+							</p>
+							
+						</div>
+						<i>（设置学年起止日期）</i>
+					</li>-->
+					<li>
+						<em>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</em>
+						<p class="zy_gradeBox">
+							<input ng-repeat="grade in schoolDate.eaGradeList" ng-model="grade.name"></input>
+						</p>
+						<b class="zy_editTips">（提示：点击方格进行编辑或修改）</b>
+					</li>
+				</ul>
+				
+				<input class="zy_submit" type="submit" name="" id="" value="保存" ng-click="modify()">
+			</div>
+			
+		</div>
+	</div>
+</div>
+

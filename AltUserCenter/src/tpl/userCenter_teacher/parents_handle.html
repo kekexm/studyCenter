@@ -1,0 +1,112 @@
+<div class="zy_main">
+	<div class="zy_cont">
+		<div class="zy_centerTit">
+			<span class="zy_active">家长管理</span>
+            <div class="zjy_handle_tab">
+                <strong ng-class="{'active':state.headTab==0}" ng-click="state.headTab=0">已注册家长</strong>
+                <strong ng-class="{'active':state.headTab==1}" ng-click="state.headTab=1">回收站</strong>
+            </div>
+		</div>
+		<div class="zy_switchCon zjy_teach_handle">
+            <div class="zjy_student_gradelist clearfix">
+                <span class="student_grade">年级 : </span>
+                <ul>
+                    <li ng-class="{'active':state.gradeState==$index}" ng-repeat="grade in parentsList.gradeList" ng-click="changeGreade($index)">{{grade.grade}}</li>
+                </ul>
+            </div>
+            <div class="zjy_student_gradelist clearfix">
+                <span class="student_grade">班级 : </span>
+                <ul>
+                    <li ng-class="{'active':state.classState==$index}" ng-repeat="classname in parentsList.classList" ng-click="changeClass($index)">{{classname.classitem}}</li>
+                </ul>
+            </div>
+            <div ng-switch="state.headTab">
+                <div ng-switch-when="0">
+                    <div class="handle_head">
+                        <ul>
+                            <li>删除</li>
+                            <li><input type="text" name="" placeholder="请输入姓名或学籍号"/><span class="handle_search"></span></li>
+                        </ul>
+                    </div>
+                    <div class="handle_table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" ng-model="state.allchecked" id="allcheck" ng-click="clickallCheck($event)"/><label for="allcheck" onSelectStart="return false">全选</label></th>
+                                    <th>序号</th>
+                                    <th>家长ID</th>
+                                    <th>家长姓名</th>
+                                    <th>手机</th>
+                                    <th>邮箱</th>
+                                    <th>学生姓名</th>
+                                    <th>学籍号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tabledata in parentsList.tableMsgList">
+                                    <td><input type="checkbox" ng-checked="isChecked(tabledata.id)" ng-click="changeCheckbox($event,tabledata.id)"/></td>
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="tabledata.id"></td>
+                                    <td ng-bind="tabledata.name"></td>
+                                    <td ng-bind="tabledata.phone"></td>
+                                    <td ng-bind="tabledata.email"></td>
+                                    <td ng-bind="tabledata.childrenname"></td>
+                                    <td ng-bind="tabledata.recordnum"></td>
+                                    <td><i class="xiugai_icon"></i>修改</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="handle_footer">
+                           <span class="handle_persontit">共<span class="handle_personcount">1200</span>人</span> 
+                           <zjy-pagination conf="parentPaginationLogin" onSelectStart="return false"></zjy-pagination>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="1">
+                    <div class="handle_head">
+                        <ul>
+                            <li>还原</li>
+                            <li>彻底删除</li>
+                            <li><input type="text" name="" placeholder="请输入姓名或手机号"/><span class="handle_search"></span></li>
+                        </ul>
+                    </div>
+                    <div class="handle_table">
+                        <table>
+                           <thead>
+                                <tr>
+                                    <th><input type="checkbox" ng-model="state.allcheckedRecover" id="allcheckRe" ng-click="clickRecoverCheck($event)"/><label for="allcheckRe" onSelectStart="return false">全选</label></th>
+                                    <th>序号</th>
+                                    <th>家长ID</th>
+                                    <th>家长姓名</th>
+                                    <th>手机</th>
+                                    <th>邮箱</th>
+                                    <th>学生姓名</th>
+                                    <th>学籍号</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tabledata in parentsList.tableMsgListRecover">
+                                    <td><input type="checkbox" ng-checked="isCheckedRecover(tabledata.id)" ng-click="changeRecoverCheckbox($event,tabledata.id)"/></td>
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="tabledata.id"></td>
+                                    <td ng-bind="tabledata.name"></td>
+                                    <td ng-bind="tabledata.phone"></td>
+                                    <td ng-bind="tabledata.email"></td>
+                                    <td ng-bind="tabledata.childrenname"></td>
+                                    <td ng-bind="tabledata.recordnum"></td>
+                                    <td><i class="xiugai_icon"></i>修改</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="handle_footer">
+                           <span class="handle_persontit">共<span class="handle_personcount">1200</span>人</span> 
+                           <zjy-pagination conf="parentPaginationRecover" onSelectStart="return false"></zjy-pagination>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</div>
